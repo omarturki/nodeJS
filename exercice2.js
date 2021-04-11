@@ -1,93 +1,93 @@
 
-getUser(1, func);
-function getUser(n, func) {
-    func(user, call);
-}
-function func(user, callback) {
-    callback()
-}
-function callback() {
-    getRepositories(user.gitHubUsername, fn(repos, levelNumber))
-}
-function fn(repos, levelNumber) {
-    getBrunch(repos[levelNumber], f(brunch))
-}
-function f(brunch) {
+getUser(1, (user) => {
+    getRepositories(user.gitHubUsername, (repos, levelNumber) => {
+        getBrunch(repos[levelNumber], (brunch) => {
+            if (brunch == "master")
+                postCommit(newVersion, (committed) => {
+                    if (committed)
+                        console.log("The new version is committed");
+                    else
+                        console.log("The new version is not committed");
+                })
+        })
+    })
+});
+
+/* 
+exercice 2 part 1*/
+
+getUser(1, (user) => {
+    getRepositories(user.gitHubUsername, (repos, levelNumber) => {
+        getBrunch(repos[levelNumber], brunch => postCommit(newVersion,
+            committed => console.log("the new version is" + committed)))
+    })
+});
+function getBrunch(r, callback1) {
     if (brunch == "master")
-        postCommit(newVersion, com(committed))
+        callback1();
 }
-function com(committed) {
-    if (committed)
-        console.log("The new version is committed");
-    else
-        console.log("The new version is not committed");
+function postCommit(n, callback) {
+    if (committed) {
+        let data = "commited";
+        callback(data);
+    } else {
+        let data = "not commited";
+        callback(data);
+    }
+
 }
 
+/* exercice 2 part 2 */
+getUser(1, (user) => {
+    getRepositories(user.gitHubUsername, (repos, levelNumber) => {
+        return new Promise((resolve, reject) => {
+            resolve(getBrunch(repos[levelNumber], (brunch) => {
+                if (brunch == "master")
+                    postCommit(newVersion, committed => console.log("the new version is" + committed));
+            }))
+        })
 
-/* exercice 2 part 2*/
+    })
+});
 
-getUser(1).then(data => func(user, call))
-            .catch(err => console.log("erreur", err));
-function func(user, callback) {
+function postCommit(n, callback) {
     return new Promise((resolve, reject) => {
-        resolve(callback());
+        if (committed) {
+            resolve(callback(data));
+        } else {
+            let data = "not commited";
+            resolve(callback(data));
+        }
     });
-}
-function callback() {
-    return new Promise((resolve, reject) => {
-        getRepositories(user.gitHubUsername, fn(repos, levelNumber))
-    })
-}
-function fn(repos, levelNumber) {
-    return new Promise((resolve, reject) => {
-        resolve(getBrunch(repos[levelNumber], f(brunch)))
-    })
-}
-function f(brunch) {
-    return new Promise((resolve, reject) => {
-        if (brunch == "master")
-            resolve(postCommit(newVersion, com(committed)));
-    })
+
 
 }
-function com(committed) {
-    return new Promise((resolve, reject) => {
-        if (committed)
-            resolve(console.log("The new version is committed"));
-        else
-            reject(console.log("The new version is not committed"));
+/* exercice 2 part 3 */
+
+async function getUser(n, user) {
+    let next = await getBrunch(repos[levelNumber], postCommit)
+    next = await callback()
+
+}
+getUser(1, (user) => {
+    getRepositories(user.gitHubUsername, (repos, levelNumber) => {
+        getBrunch(repos[levelNumber], brunch => postCommit(newVersion,
+            committed => console.log("the new version is" + committed)))
     })
-}
-/*exercice 2 part 3*/
-async function getUser(n,user){
-let next = await func(user, callback)
-next= await callback()
-next = await fn(repos, levelNumber)
-next = await f(brunch)
-next = await com(committed)
-
-}
-getUser(1, func);
-
-function getUser(n, func) {
-    func(user, call);
-}
-function func(user, callback) {
-    callback()
-}
-function callback() {
-    getRepositories(user.gitHubUsername, fn(repos, levelNumber))
-}
-function fn(repos, levelNumber) {
-    getBrunch(repos[levelNumber], f(brunch))
-}
-function f(brunch) {
+});
+function getBrunch(r, callback1) {
     if (brunch == "master")
-        postCommit(newVersion, com(committed))
+        callback1();
 }
-function com(committed) {
-    if (committed)
-        console.log("The new version is committed");
-    else
-        console.log("The new version is not committed");
+function postCommit(n, callback) {
+    if (committed) {
+        let data = "commited";
+        callback(data);
+    } else {
+        let data = "not commited";
+        callback(data);
+    }
+
 }
+getUser(1, user);
+

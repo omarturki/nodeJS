@@ -57,7 +57,7 @@ function com(committed) {
         else
             reject(console.log("The new version is not committed"));
     })
-
+}
 /*exercice 2 part 3*/
 async function getUser(n,user){
 let next = await func(user, callback)
@@ -68,7 +68,7 @@ next = await com(committed)
 
 }
 getUser(1, func);
-/*
+
 function getUser(n, func) {
     func(user, call);
 }
@@ -91,7 +91,3 @@ function com(committed) {
     else
         console.log("The new version is not committed");
 }
-
-getUser(1,user)
-
-}*/
